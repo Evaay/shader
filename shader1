@@ -1,0 +1,24 @@
+#ifdef GL_ES
+precision mediump float;
+#endif
+uniform vec2 r,m;
+uniform float t;
+float q(vec2 s,vec2 z,vec2 c){
+  vec2 h=z*.5,d=abs(s-c);
+  return step(d.x,h.x)*step(d.y,h.y);
+}
+void main(){
+  vec2 s=gl_FragCoord.xy/r;
+  vec3 c=vec3(0.);
+  float p=.05,z=.27;
+  float B=q(s,vec2(1.),vec2(.5));
+  c=mix(c,vec3(0.,.6,1.)*t*.2,B);
+  for(int i=0;i<1000;i++){
+    float f=float(i)+sin(t);
+    float Q=q(s,vec2(1.-z,1.-z),vec2(.5,.45+p));
+    if(Q>0.)c=vec3(0.,1.-f*.05,.2);
+    p+=p*.07;
+    z+=.03;
+  }
+  gl_FragColor=vec4(c,1.);
+}
