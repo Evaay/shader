@@ -5,9 +5,13 @@
 El objetivo de este proyecto era explorar la creación de patrones generativos complejos y dinámicos utilizando la eficiencia de los shaders de fragmentos (GLSL). He querido realizar cambios de color y trabajar con las variables de u_time y u_mouse. También he querido generar nuevas formas o efectos visuales.
 
 ## Videos
+
 Shader1:https://youtu.be/Hd4T7JE6VPQ
+
 Shader2:https://youtube.com/shorts/btyK0SkFOn0?feature=share
+
 Shader3:https://youtu.be/25CH2KAENc4
+
 ---
 
 ## Descripción del Desarrollo
