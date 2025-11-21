@@ -6,8 +6,8 @@ uniform float u_time;
 
 void main(){
     vec2 s=gl_FragCoord.xy/u_resolution*2.-1.;
-    s.x+=fract(sin(s.y*10.+u_time)*.1*u_mouse.x*.3);
-    s.y+=fract(cos(s.x*10.+u_time)*.1*u_mouse.x*.8);
+    s.x+=fract(sin(s.y*10.+u_time)*.1*u_mouse.x*0.013);
+    s.y+=fract(cos(s.x*10.+u_time)*.1*u_mouse.x*0.018);
     float r=length(s),v=u_time*4.+8./(r+.1);
     vec3 b=.5+.3*sin(vec3(.25,.55,.85)*v);
     gl_FragColor=vec4(mix(b,vec3(1.),.4),1.);
