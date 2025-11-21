@@ -1,8 +1,7 @@
 #ifdef GL_ES
 precision mediump float;
 #endif
-uniform vec2 u_resolution;
-uniform float u_time;
+uniform vec2 u_resolution;uniform float u_time;
 float c2(vec2 s,vec2 z,vec2 c){vec2 h=z*.5,d=abs(s-c);return step(d.x,h.x)*step(d.y,h.y);}
 void main(){
     vec2 s=gl_FragCoord.xy/u_resolution;vec3 col=vec3(0.);float sep=.05,sz=.27;col=mix(col,vec3(0.,.6,1.)*u_time*.2,c2(s,vec2(1.),vec2(.5)));
