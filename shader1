@@ -3,8 +3,17 @@ precision mediump float;
 #endif
 uniform vec2 u_resolution;
 uniform float u_time;
+float q(vec2 s,vec2 z,vec2 c){vec2 h=z*.5,d=abs(s-c);return step(d.x,h.x)*step(d.y,h.y);}
 void main(){
-vec2 s=gl_FragCoord.xy/u_resolution-.5,c=s-vec2(0,.05);
-float d=max(abs(c.x),abs(c.y)),r=fract(d*12.),i=floor(d*12.);
-gl_FragColor=vec4(d<.5?mix(vec3(0.,.6,1.),vec3(0.,1.-i*.05,.2),step(r,.4)):vec3(0.,.6,1.),1.);
+    vec2 s=gl_FragCoord.xy/u_resolution;
+    vec3 c=vec3(0);
+    float sep=.05,sz=.27;
+    c=mix(c,vec3(0,.6,1.)*u_time*.2,q(s,vec2(1.),vec2(.5)));
+    for(int i=0;i<100;i++){
+        float f=float(i)+sin(u_time);
+        vec2 ctr=vec2(.5,.45+sep+.05*sin(u_time+f));
+        if(q(s,vec2(1.-sz),ctr)>0.)c=vec3(0,1.-f*.05,.2);
+        sep*=1.07; sz+=.03;
+    }
+    gl_FragColor=vec4(c,1.);
 }
