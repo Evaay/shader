@@ -35,6 +35,13 @@ Shader 3: Patrón de Círculos Animado
   Se utilizó el índice de la celda (index_x + index_y) como desfase para la función sin() que controlaba el radio del círculo. Esto garantizó que cada círculo dentro del mosaico se expandiera y contrajera de forma independiente a lo largo del tiempo, rompiendo la uniformidad del patrón y creando la sensación de movimiento.
   La forma del círculo se definió con smoothstep aplicada al radio de la cuadrícula, mientras que el color se definió mediante la misma técnica de paleta cíclica del Shader 1, asegurando un resultado visual coherente.
 
+Shader 4: Efecto túnel
+  Este shader se entregó fuera del plazo de entrega, se había realizado durante la semana pero debido a superar el tamaño de los 512b no se había subido. Para este shader se inspiró en una de las obras realizadas de Victor Vasarely.
+  Se creó una función utilitaria cuadrado(), la cual emplea la función step() para definir la geometría del cuadrado, retornando $1.0$ solo cuando el píxel se encuentra dentro de sus límites.
+  Se utilizó un bucle de 25 iteraciones para la generación de los múltiples cuadrados concéntricos.
+  Las variables size y separation se modifican iterativamente para generar el efecto de perspectiva (haciendo que los cuadrados se reduzcan y se separen progresivamente).
+  Se combinaron el índice del bucle (i) con la función sin(u_time) para crear un degradado de color a lo largo de la profundidad del túnel, al mismo tiempo que se introduce una sutil oscilación temporal en el tono.
+
 ---
 
 ## Fuentes Utilizadas
