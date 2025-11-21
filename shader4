@@ -1,0 +1,35 @@
+// Author:
+// Title:
+#ifdef GL_ES
+precision mediump float;
+#endif
+uniform vec2 u_resolution;
+uniform float u_time;
+float cuadrado(vec2 _st,vec2 size, vec2 center){
+    vec2 halfSize = size * 0.5;
+    vec2 dist = abs(_st - center);
+    float inside = step(dist.x, halfSize.x) * step(dist.y, halfSize.y);
+    return inside;
+}
+
+void main() {
+    vec2 st = gl_FragCoord.xy/u_resolution;
+    vec3 color = vec3(0.0);
+
+    float separation = 0.05;
+    float size = 0.270;
+
+    float big = cuadrado(st, vec2(1. , 1.), vec2(0.5, 0.5));
+    color = mix(color, vec3(0.0,0.6,1.0)*u_time*0.2, big);  
+
+    for (int i = 0; i < 25; i++) {
+        float f = float(i) + sin(u_time);
+        float cuadrado = cuadrado(st,vec2(1. - size, 1. - size), vec2(0.5, 0.45 + separation));
+        if (cuadrado > 0.0){
+            color = vec3(0.741, 1. - f*0.03, 0.174);
+        }
+         separation += separation*0.07;
+         size += 0.03;
+    }
+    gl_FragColor = vec4(color,1.0);
+}
