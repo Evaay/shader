@@ -1,0 +1,17 @@
+#ifdef GL_ES
+precision mediump float;
+#endif
+uniform vec2 u_resolution;
+uniform float u_time;
+void main(){
+vec2 s=gl_FragCoord.xy/u_resolution;
+float t=u_time;
+s*=8.;
+float x=floor(s.x),y=floor(s.y);
+s=fract(s)-.5;
+float r=length(s),a=sin(t+x+y)*.1;
+float c=smoothstep(.4+a,.6+a,r);
+vec3 c1=vec3(sin(t*.5),cos(t*.3),sin(t*.7))*.5+.5;
+vec3 c2=vec3(cos(t*.4),sin(t*.6),cos(t*.2))*.5+.5;
+gl_FragColor=vec4(mix(c1,c2,c),1.);
+}
