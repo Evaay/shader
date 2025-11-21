@@ -1,35 +1,27 @@
-// Author:
-// Title:
 #ifdef GL_ES
 precision mediump float;
 #endif
 uniform vec2 u_resolution;
-uniform vec2 u_mouse;
 uniform float u_time;
-float cuadrado(vec2 st, vec2 size, vec2 center){
-    vec2 halfSize = size * 0.5;
-    vec2 dist = abs(st - center);
-    return step(dist.x, halfSize.x) * step(dist.y, halfSize.y);
-}
-void main() {
-    vec2 st = gl_FragCoord.xy/u_resolution;
-    vec3 color = vec3(0.0);
+void main(){
+    vec2 st=gl_FragCoord.xy/u_resolution;
+    vec3 col=vec3(0.);
+    float sep=0.05,s=0.27;
+    
+    float big=step(abs(st.x-0.5),0.5)*step(abs(st.y-0.5),0.5);
+    col=mix(col,vec3(0.,.6,1.)*u_time*.2,big);
+    
+    for(int i=0;i<30;i++){
+        float f=float(i)+sin(u_time);
+        
+        vec2 hs=vec2(.5-s/2.); 
+        float c=step(abs(st.x-0.5),hs.x)*step(abs(st.y-(0.45+sep)),hs.y);
+        
+        col=mix(col,vec3(0.,1.-f*.05,.2),c);
 
-    float separation = 0.05;
-    float size = 0.270;
-
-    float big = cuadrado(st, vec2(1.0), vec2(0.5));
-    color = mix(color, vec3(0.0, 0.6, 1.0) * u_time * 0.2, big); 
-
-    for (int i = 0; i < 100; i++) {
-		float f = float(i) + sin(u_time);
-        float c = cuadrado(st, vec2(1.0 - size), vec2(0.5, 0.45 + separation));
-        if (c > 0.0){
-            color = vec3(0.0, 1.0 - f * 0.05, 0.2);
-        }
-         separation *= 1.07;
-         size += 0.03;
+        sep*=1.07;
+        s+=0.03;
+        if(s>1.)break;
     }
-
-    gl_FragColor = vec4(color,1.0);
+    gl_FragColor=vec4(col,1.);
 }
