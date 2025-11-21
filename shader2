@@ -1,7 +1,13 @@
+
+#ifdef GL_ES
+precision mediump float;
+#endif
+uniform vec2 u_resolution;
+uniform vec2 u_mouse;
+uniform float u_time;
 void main(){
 vec2 s=gl_FragCoord.xy/u_resolution;
-float t=u_time;
-s-=.5;
+float t=u_time;s-=.5;
 float r=length(s),a=sin(t)*3.14159;
 s*=mat2(cos(a),-sin(a),sin(a),cos(a));
 s+=.5;
