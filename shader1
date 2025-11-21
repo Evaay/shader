@@ -1,7 +1,14 @@
 #ifdef GL_ES
 precision mediump float;
 #endif
-uniform vec2 u_resolution;uniform float u_time;
-float c2(vec2 s,vec2 z,vec2 c){vec2 h=z*.5,d=abs(s-c);return step(d.x,h.x)*step(d.y,h.y);}
-void main(){vec2 s=gl_FragCoord.xy/u_resolution;vec3 col=vec3(0.);float sep=.05,sz=.27;col=mix(col,vec3(0.,.6,1.)*u_time*.2,c2(s,vec2(1.),vec2(.5)));
-for(int i=0;i<100;i++){float f=float(i)+sin(u_time),c=c2(s,vec2(1.-sz),vec2(.5,.45+sep));if(c>0.)col=vec3(0.,1.-f*.05,.2);sep*=1.07;sz+=.03;}gl_FragColor=vec4(col,1.);}
+uniform vec2 u_resolution,u_mouse;
+uniform float u_time;
+
+void main(){
+    vec2 s=gl_FragCoord.xy/u_resolution*2.-1.;
+    s.x+=fract(sin(s.y*10.+u_time)*.1*u_mouse.x*.3);
+    s.y+=fract(cos(s.x*10.+u_time)*.1*u_mouse.x*.8);
+    float r=length(s),v=u_time*4.+8./(r+.1);
+    vec3 b=.5+.3*sin(vec3(.25,.55,.85)*v);
+    gl_FragColor=vec4(mix(b,vec3(1.),.4),1.);
+}
